@@ -1,10 +1,10 @@
 import { readFile, readFileSync } from 'fs';
 import { join, dirname } from 'path';
 
-// Get Homepage
-function getHomePage(req, res) {
+// Get Search
+function getSearchPage(req, res) {
     const __dirname = dirname(__filename);
-    const filePath = join(__dirname, '../resources/html/index.html');
+    const filePath = join(__dirname, '../resources/html/search.html');
     readFile(filePath, (err, data) => {
         if (err) {
             res.statusCode = 500;
@@ -27,5 +27,5 @@ function getHomePage(req, res) {
     });
 }
 export {
-    getHomePage
+    getSearchPage
 };

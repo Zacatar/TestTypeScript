@@ -1,6 +1,7 @@
 import { getHomePage } from './index.js';
 import { getAboutPage } from './about.js';
 import { getPaciente, insertPaciente } from '../App/controlador/paciente.js';
+import { getSearchPage } from './search.js';
 
 function processRoutes(req, res) {
     switch (req.url) {
@@ -19,6 +20,11 @@ function processRoutes(req, res) {
             break;
         }  
         
+        case '/search' : {
+            getSearchPage(req, res);
+            break;
+        }
+
         case req.url.match(/^\/api\/paciente\/\d+$/)?.input: {
             res.statusCode = 200;
             getPaciente(req, res);
@@ -37,6 +43,10 @@ function processRoutesPost(req, res) {
     switch (req.url) {
         case '/': {
             insertPaciente(req, res);
+            break;
+        }
+        case '/search' : {
+            getPaciente(req, res);
             break;
         }
         default:
