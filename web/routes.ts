@@ -1,6 +1,6 @@
 import { getHomePage } from './index.js';
 import { getAboutPage } from './about.js';
-import { getPaciente } from '../App/controlador/paciente.js';
+import { getPaciente, insertPaciente } from '../App/controlador/paciente.js';
 
 function processRoutes(req, res) {
     switch (req.url) {
@@ -33,6 +33,20 @@ function processRoutes(req, res) {
 
 }
 
+function processRoutesPost(req, res) {
+    switch (req.url) {
+        case '/api/paciente': {
+            insertPaciente(req, res);
+            break;
+        }
+        default:
+            res.statusCode = 404;
+            res.setHeader('Content-Type', 'text/plain');
+            res.end('Not Found');
+            break;
+    }
+}
+
 export {
-    processRoutes
+    processRoutes, processRoutesPost
 };
