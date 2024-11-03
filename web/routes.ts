@@ -35,7 +35,7 @@ function processRoutes(req, res) {
 
 function processRoutesPost(req, res) {
     switch (req.url) {
-        case '/api/paciente': {
+        case '/': {
             insertPaciente(req, res);
             break;
         }

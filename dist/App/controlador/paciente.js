@@ -39,7 +39,15 @@ function insertPaciente(req, res) {
         data += chunk;
     });
     req.on('end', () => {
-        const paciente = JSON.parse(data);
+        const params = new URLSearchParams(data);
+        const paciente = {
+            nombre: params.get('nombre'),
+            apellido: params.get('apellido'),
+            edad: parseInt(params.get('edad'), 10),
+            genero: params.get('genero'),
+            telefono: params.get('telefono'),
+            direccion: params.get('direccion')
+        };
         dbConn_1.sequelize.sync().then(() => {
             pacientes_1.default.create(paciente).then((data) => {
                 res.statusCode = 201;
