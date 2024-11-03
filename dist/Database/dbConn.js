@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sequelize = void 0;
 const sequelize_1 = require("sequelize");
-const sequelize = new sequelize_1.Sequelize('mysql://sa:123456@localhost:3306/consultoriomedico');
+const sequelize = new sequelize_1.Sequelize(process.env.DATABASE_URL);
 exports.sequelize = sequelize;
 function tryconection() {
     return __awaiter(this, void 0, void 0, function* () {

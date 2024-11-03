@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.processRoutes = void 0;
+exports.processRoutesPost = exports.processRoutes = void 0;
 const index_js_1 = require("./index.js");
 const about_js_1 = require("./about.js");
 const paciente_js_1 = require("../App/controlador/paciente.js");
@@ -34,4 +34,18 @@ function processRoutes(req, res) {
     }
 }
 exports.processRoutes = processRoutes;
+function processRoutesPost(req, res) {
+    switch (req.url) {
+        case '/api/paciente': {
+            (0, paciente_js_1.insertPaciente)(req, res);
+            break;
+        }
+        default:
+            res.statusCode = 404;
+            res.setHeader('Content-Type', 'text/plain');
+            res.end('Not Found');
+            break;
+    }
+}
+exports.processRoutesPost = processRoutesPost;
 //# sourceMappingURL=routes.js.map

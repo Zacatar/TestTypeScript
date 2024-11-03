@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
 
-const sequelize = new Sequelize('mysql://sa:123456@localhost:3306/consultoriomedico');
+const sequelize = new Sequelize(process.env.DATABASE_URL);
 
 async function tryconection() {
   try {

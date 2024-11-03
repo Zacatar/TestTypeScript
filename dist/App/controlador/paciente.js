@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getPaciente = void 0;
+exports.insertPaciente = exports.getPaciente = void 0;
 const pacientes_1 = __importDefault(require("../Models/pacientes"));
 const dbConn_1 = require("../../Database/dbConn");
 //Get Paciente
@@ -33,4 +33,29 @@ function getPaciente(req, res) {
     });
 }
 exports.getPaciente = getPaciente;
+function insertPaciente(req, res) {
+    let data = '';
+    req.on('data', chunk => {
+        data += chunk;
+    });
+    req.on('end', () => {
+        const paciente = JSON.parse(data);
+        dbConn_1.sequelize.sync().then(() => {
+            pacientes_1.default.create(paciente).then((data) => {
+                res.statusCode = 201;
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify(data));
+            }).catch((error) => {
+                res.statusCode = 500;
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({ message: 'Internal Server Error', error: error.message }));
+            });
+        }).catch((error) => {
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ message: 'Internal Server Error', error: error.message }));
+        });
+    });
+}
+exports.insertPaciente = insertPaciente;
 //# sourceMappingURL=paciente.js.map
