@@ -11,21 +11,17 @@ function getPaciente(req, res) {
     const userId = req.url.split('/').pop();
     res.statusCode = 200;
     dbConn_1.sequelize.sync().then(() => {
-        pacientes_1.default.findByPk(userId).then((data) => {
-            if (data) {
-                res.setHeader('Content-Type', 'application/json');
-                res.end(JSON.stringify(data));
-            }
-            else {
-                res.statusCode = 404;
-                res.setHeader('Content-Type', 'application/json');
-                res.end(JSON.stringify({ message: `User ID: ${userId} not found` }));
-            }
-        }).catch((error) => {
-            res.statusCode = 500;
+        return pacientes_1.default.findByPk(userId);
+    }).then((data) => {
+        if (data) {
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({ message: 'Internal Server Error', error: error.message }));
-        });
+            res.end(JSON.stringify(data));
+        }
+        else {
+            res.statusCode = 404;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ message: `User ID: ${userId} not found` }));
+        }
     }).catch((error) => {
         res.statusCode = 500;
         res.setHeader('Content-Type', 'application/json');
